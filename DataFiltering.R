@@ -4,19 +4,21 @@ adnimerge <- read.csv("C:/Users/srila/Documents/R-Programming-Folder/ADNIMERGE_2
 
 adnimerge <- adnimerge[adnimerge$COLPROT == "ADNI2",]
 
-adnimerge <- subset(adnimerge, select = c(FLDSTRENG, DX_bl, DX, RID, APOE4, MOCA, MMSE))
+adnimerge <- subset(adnimerge, select = c(FLDSTRENG, DX_bl, DX, RID, SITE, AGE, PTGENDER, PTETHCAT, PTRACCAT, PTMARRY, MMSE, MOCA, APOE4))
 
 mergedFemale <- merge(female, adnimerge, by="RID", all.x = FALSE)
 mergedMale <- merge(male, adnimerge, by="RID", all.x = FALSE)
 
-mergedFemale <- mergedFemale[mergedFemale$FLDSTRENG == "3 Tesla MRI",]
-mergedMale <- mergedMale[mergedMale$FLDSTRENG == "3 Tesla MRI",]
-
 mergedFemale <-  mergedFemale[!duplicated(mergedFemale[,c('RID','VISCODE.x')]),]
-mergedFemale <- mergedFemale[,c("RID","VISCODE.x","VISCODE2.x","EXAMDATE","META_TEMPORAL_SUVR","META_TEMPORAL_VOLUME","CTX_ENTORHINAL_SUVR","CTX_ENTORHINAL_VOLUME","INFERIORCEREBELLUM_SUVR","INFERIORCEREBELLUM_VOLUME","ERODED_SUBCORTICALWM_SUVR","ERODED_SUBCORTICALWM_VOLUME", "APOE4", "MOCA", "MMSE", "DX_bl","DX")]
+#mergedFemale <- mergedFemale[,c("RID","VISCODE.x","VISCODE2.x","EXAMDATE","META_TEMPORAL_SUVR","META_TEMPORAL_VOLUME","CTX_ENTORHINAL_SUVR","CTX_ENTORHINAL_VOLUME","INFERIORCEREBELLUM_SUVR","INFERIORCEREBELLUM_VOLUME","ERODED_SUBCORTICALWM_SUVR","ERODED_SUBCORTICALWM_VOLUME", "APOE4", "MOCA", "MMSE", "DX_bl","DX")]
 
 mergedMale <-  mergedMale[!duplicated(mergedMale[,c('RID','VISCODE.x')]),]
-mergedMale <- mergedMale[,c("RID","VISCODE.x","VISCODE2.x","EXAMDATE","META_TEMPORAL_SUVR","META_TEMPORAL_VOLUME","CTX_ENTORHINAL_SUVR","CTX_ENTORHINAL_VOLUME","INFERIORCEREBELLUM_SUVR","INFERIORCEREBELLUM_VOLUME","ERODED_SUBCORTICALWM_SUVR","ERODED_SUBCORTICALWM_VOLUME", "APOE4", "MOCA", "MMSE", "DX_bl","DX")]
+#mergedMale <- mergedMale[,c("RID","VISCODE.x","VISCODE2.x","EXAMDATE","META_TEMPORAL_SUVR","META_TEMPORAL_VOLUME","CTX_ENTORHINAL_SUVR","CTX_ENTORHINAL_VOLUME","INFERIORCEREBELLUM_SUVR","INFERIORCEREBELLUM_VOLUME","ERODED_SUBCORTICALWM_SUVR","ERODED_SUBCORTICALWM_VOLUME", "APOE4", "MOCA", "MMSE", "DX_bl","DX")]
+
+
+
+mergedFemale <- mergedFemale[mergedFemale$FLDSTRENG == "3 Tesla MRI",]
+mergedMale <- mergedMale[mergedMale$FLDSTRENG == "3 Tesla MRI",]
 
 mergedFemaleCN <- mergedFemale[mergedFemale$DX == "CN",]
 mergedMaleCN <- mergedMale[mergedMale$DX == "CN",]
@@ -51,6 +53,15 @@ mergedMaleD <- mergedMale[mergedMale$DX == "Dementia",]
 
 mergedFemaleD2 <- mergedFemaleD %>% group_by(RID) %>% filter(n()>1)
 mergedFemaleD3 <- mergedFemaleD %>% group_by(RID) %>% filter(n()>2)
+
+mergedMaleD2 <- mergedMaleD %>% group_by(RID) %>% filter(n()>1)
+mergedMaleD3 <- mergedMaleD %>% group_by(RID) %>% filter(n()>2)
+
+mergedMaleD2 <-  mergedMaleD2[!duplicated(mergedMaleD2[,c('RID','VISCODE.x')]),]
+mergedMaleD2 <- mergedMaleD2[,c("RID","VISCODE.x","VISCODE2.x","EXAMDATE","META_TEMPORAL_SUVR","META_TEMPORAL_VOLUME","CTX_ENTORHINAL_SUVR","CTX_ENTORHINAL_VOLUME","INFERIORCEREBELLUM_SUVR","INFERIORCEREBELLUM_VOLUME","ERODED_SUBCORTICALWM_SUVR","ERODED_SUBCORTICALWM_VOLUME", "APOE4", "MOCA", "MMSE", "DX_bl","DX")]
+
+mergedMaleD3 <-  mergedMaleD3[!duplicated(mergedMaleD3[,c('RID','VISCODE.x')]),]
+mergedMaleD3 <- mergedMaleD3[,c("RID","VISCODE.x","VISCODE2.x","EXAMDATE","META_TEMPORAL_SUVR","META_TEMPORAL_VOLUME","CTX_ENTORHINAL_SUVR","CTX_ENTORHINAL_VOLUME","INFERIORCEREBELLUM_SUVR","INFERIORCEREBELLUM_VOLUME","ERODED_SUBCORTICALWM_SUVR","ERODED_SUBCORTICALWM_VOLUME", "APOE4", "MOCA", "MMSE", "DX_bl","DX")]
 
 mergedMaleD2 <- mergedMaleD %>% group_by(RID) %>% filter(n()>1)
 mergedMaleD3 <- mergedMaleD %>% group_by(RID) %>% filter(n()>2)
